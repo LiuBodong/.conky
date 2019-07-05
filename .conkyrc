@@ -1,0 +1,67 @@
+conky.config = {
+    alignment = 'top_right',
+    background = false,
+    border_width = 0.5,
+    cpu_avg_samples = 4,
+    default_color = 'white',
+    default_outline_color = 'grey',
+    default_shade_color = 'black',
+    draw_borders = true,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    use_xft = true,
+    font = 'DejaVu Sans Mono:size=10',
+    gap_x = 5,
+    gap_y = 50,
+    minimum_height = 5,
+    minimum_width = 5,
+    net_avg_samples = 2,
+    double_buffer = true,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+    own_window = true,
+    own_window_colour = '000000',
+    own_window_class = 'Conky',
+    own_window_argb_visual = true,
+    own_window_argb_count = 0,
+    own_window_type = 'dock',
+    own_window_transparent = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    stippled_borders = 0,
+    update_interval = 2,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false
+}
+
+conky.text = [[
+${image ~/.face -p 180,5 -s 70x70 -f 86400}
+${font WenQuanYi Micro Hei:bold:size=14}${alignc}${color 00ffae}$nodename
+${font WenQuanYi Micro Hei:bold:size=8}${alignc}${desktop_name} ${desktop}/$desktop_number
+${font WenQuanYi Micro Hei:bold:size=8}${alignc}    ${exec hostnamectl | grep System | cut -c21-40}
+${alignc}   ${exec hostnamectl | grep Architecture | cut -c7-30}
+${alignc}   ${exec hostnamectl | grep Kernel | cut -c13-32}
+${font WenQuanYi Micro Hei:bold:size=12}${color 33E9FF}运行状态 ${hr 2}${font}
+${offset 15}${color FFFDE2}${font WenQuanYi Micro Hei:size=8}开机时间 ${alignr}$color $uptime
+${offset 15}${color FFFDE2}${font WenQuanYi Micro Hei:size=8}物理内存 :$color $mem $memperc% ${color yellow}${membar 4}
+${offset 15}${color FFFDE2}${font WenQuanYi Micro Hei:size=8}交换内存:$color $swap/$swapmax $swapperc% ${color yellow}${swapbar 4}
+${offset 15}Core 1   ${color ff8300}${cpubar cpu1 6}${color FFFDE2}
+${offset 15}Core 2   ${color ff8300}${cpubar cpu2 6}${color FFFDE2} 
+${offset 15}${font WenQuanYi Micro Hei:size=10}${color FFFDE2}进程数:$color $processes  ${color FFFDE2}运行中:$color $running_processes CPU温度: ${acpitemp}°C
+${font WenQuanYi Micro Hei:bold:size=12}${color grey}网络:
+${offset 15}${font WenQuanYi Micro Hei:size=10}上行速度:$color ${upspeed wlp9s0} ${color grey} - 下行速度:$color ${downspeed wlp9s0}
+${offset 15}${upspeedgraph wlp9s0 20,100} ${offset 15}${downspeedgraph wlp9s0 20,100}
+${font WenQuanYi Micro Hei:bold:size=12}${color red}进程运行情况 ${hr 2}
+${offset 15}${font WenQuanYi Micro Hei:size=8}${color EDE0FF}名称               ${alignr}PID   CPU%   MEM%
+${offset 15}${color FF7878}${top name 1} ${alignr}${top pid 1} ${top cpu 1} ${top mem 1}
+${offset 15}${color FF7878}${top name 2} ${alignr}${top pid 2} ${top cpu 2} ${top mem 2}
+${offset 15}${color FF7878}${top name 3} ${alignr}${top pid 3} ${top cpu 3} ${top mem 3}
+${offset 15}${color FF7878}${top name 4} ${alignr}${top pid 4} ${top cpu 4} ${top mem 4}
+${font Entopia:bold:size=12}${color 00ffae}FORTUNE ${hr 2}$color
+${offset 15}${font WenQuanYi Micro Hei:size=10}愿我如星君如月，夜夜流光相皎洁。
+${font WenQuanYi Micro Hei:bold:size=14}${color grey}天气情况:
+${execp python3 ~/.conky/weather.py}
+]]
