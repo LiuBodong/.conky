@@ -3,13 +3,15 @@ import requests
 import urllib3
 import json
 import time
+import sys
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 current_dir = os.path.abspath(os.path.dirname(__file__))
 data_file = os.path.join(current_dir, '.tmp')
 
-def weather(location):
+
+def weather(location, interval=1800):
     base_url = "https://free-api.heweather.net/s6/weather/now"
     params = {
         'location': location,
@@ -21,13 +23,14 @@ def weather(location):
             content = f.read()
             if content:
                 data_json = json.loads(content, encoding='utf-8')
-                last_update_time = data_json['last_update_time']                
-        if last_update_time + 30.0 * 60.0 <= time.mktime(time.localtime()):
+                last_update_time = data_json['last_update_time']
+        if last_update_time + float(interval) <= time.mktime(time.localtime()):
             try:
                 result_json = requests.get(url=base_url, params=params, verify=False).json()[
                     'HeWeather6'][0]
                 with open(data_file, 'wb+') as f:
-                    f.write(json.dumps({'last_update_time': time.mktime(time.localtime()), 'result': result_json}).encode('utf-8'))
+                    f.write(json.dumps({'last_update_time': time.mktime(
+                        time.localtime()), 'result': result_json}).encode('utf-8'))
                     f.flush()
             except Exception as e:
                 os.remove(data_file)
@@ -39,7 +42,8 @@ def weather(location):
             result_json = requests.get(url=base_url, params=params, verify=False).json()[
                 'HeWeather6'][0]
             with open(data_file, 'wb+') as f:
-                f.write(json.dumps({'last_update_time': time.mktime(time.localtime()), 'result': result_json}).encode('utf-8'))
+                f.write(json.dumps({'last_update_time': time.mktime(
+                    time.localtime()), 'result': result_json}).encode('utf-8'))
                 f.flush()
         except Exception as e:
             os.remove(data_file)
@@ -64,12 +68,17 @@ def parse(result):
             cond_pic = os.path.join(current_dir, str(cond_code) + 'n.png')
         else:
             cond_pic = os.path.join(current_dir, str(cond_code) + '.png')
-        print('${image ' + cond_pic + ' -p 35,435 -s 50x50 -f 86400}${offset 100}${color FF7878}' + location + '区 ' + cond_text)
-        print('${offset 100}${color grey}${font WenQuanYi Micro Hei:bold:size=10}' + str(tmp) + '°C ' + wind_dir + '' + wind_sc + '级')
+        print('${image ' + cond_pic + ' -p 35,650 -s 50x50 -f 86400}${offset 100}${color FF7878}' +
+              location + ' ' + cond_text)
+        print('${offset 100}${color grey}${font WenQuanYi Micro Hei:bold:size=10}' +
+              str(tmp) + '°C ' + wind_dir + '' + wind_sc + '级')
         print('${offset 30}更新时间：' + update)
+        # print('${offset 30}当前时间：' + time.strftime('%Y-%m-%d %H:%M:%S' ,time.localtime()))
     else:
-        print('${offset 70}${color grey}${font WenQuanYi Micro Hei:bold:size=10}当前服务不可用')
+        print(
+            '${offset 70}${color grey}${font WenQuanYi Micro Hei:bold:size=10}当前服务不可用')
 
 
 if __name__ == "__main__":
-    parse(weather('370602'))
+    result = weather(sys.argv[1], sys.argv[1])
+    parse(result)
