@@ -39,7 +39,7 @@ conky.config = {
 
 conky.text = [[
 ${offset 30}${font WenQuanYi Micro Hei:bold:size=14}${color white}${exec date "+%Y-%m-%d %H:%M:%S"}
-${image ~/.conky/pacman.png -p 0,60 -s 70x70 -f 86400}${image ~/.face -p 185,60 -s 70x70 -f 86400}
+${image ~/.conky/pacman.png -p 0,60 -s 60x60 -f 86400}${image ~/.conky/face.jpg -p 185,60 -s 60x60 -f 86400}
 ${font WenQuanYi Micro Hei:bold:size=14}${alignc}${color 00ffae}$nodename
 ${font WenQuanYi Micro Hei:bold:size=8}${alignc}${desktop_name} ${desktop}/$desktop_number
 ${font WenQuanYi Micro Hei:bold:size=8}${alignc}    ${exec hostnamectl | grep System | cut -c21-40}
