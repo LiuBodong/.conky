@@ -55,7 +55,7 @@ ${offset 15}Core 3   ${color ff8300}${cpubar cpu3 10}${color FFFDE2}
 ${offset 15}Core 4   ${color ff8300}${cpubar cpu4 10}${color FFFDE2} 
 ${offset 15}Core 5   ${color ff8300}${cpubar cpu5 10}${color FFFDE2}
 ${offset 15}Core 6   ${color ff8300}${cpubar cpu6 10}${color FFFDE2} 
-${offset 15}${font WenQuanYi Micro Hei:size=10}${color FFFDE2}进程数:$color $processes  ${color FFFDE2}运行中:$color $running_processes CPU温度: ${acpitemp}°C
+${offset 15}${font WenQuanYi Micro Hei:size=9}${color FFFDE2}进程数:$color $processes  ${color FFFDE2}运行中:$color $running_processes  CPU温度: ${acpitemp}°C
 ${font WenQuanYi Micro Hei:bold:size=12}${color grey}网络${hr 2}
 ${offset 15}${font WenQuanYi Micro Hei:size=10}IP地址:${addr eno1}
 ${offset 15}${font WenQuanYi Micro Hei:size=10}上行速度:$color ${upspeed eno1} ${color grey} - 下行速度:$color ${downspeed eno1}

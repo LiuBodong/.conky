@@ -24,7 +24,8 @@ def weather(location, interval=1800):
             if content:
                 data_json = json.loads(content, encoding='utf-8')
                 last_update_time = data_json['last_update_time']
-        if last_update_time + float(interval) >= time.mktime(time.localtime()):
+        # print(last_update_time,  time.mktime(time.localtime()), time.mktime(time.localtime()) - last_update_time, time.mktime(time.localtime()) - last_update_time >= float(interval))
+        if time.mktime(time.localtime()) - last_update_time >= float(interval) :
             try:
                 result_json = requests.get(url=base_url, params=params, verify=False).json()[
                     'HeWeather6'][0]
